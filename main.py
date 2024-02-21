@@ -71,43 +71,8 @@ def test_2():
 
     assert isinstance(flat_generator(list_of_lists_1), types.GeneratorType)
 
-def get_end_list(list_of_list, end_list):
-
-    for current_element in list_of_list:
-        if isinstance(current_element, list) == True:
-            get_end_list(current_element, end_list)
-        else:
-            end_list.append(current_element)
-
-    return end_list
-
-def flat_generator4(list_of_list):
-    end_list = []
-    get_end_list(list_of_list, end_list)
-    for elem in end_list:
-        yield elem
-
-def test_4():
-
-    list_of_lists_2 = [
-        [['a'], ['b', 'c']],
-        ['d', 'e', [['f'], 'h'], False],
-        [1, 2, None, [[[[['!']]]]], []]
-    ]
-
-    for flat_iterator_item, check_item in zip(
-            flat_generator4(list_of_lists_2),
-            ['a', 'b', 'c', 'd', 'e', 'f', 'h', False, 1, 2, None, '!']
-    ):
-
-        assert flat_iterator_item == check_item
-
-    assert list(flat_generator4(list_of_lists_2)) == ['a', 'b', 'c', 'd', 'e', 'f', 'h', False, 1, 2, None, '!']
-
-    assert isinstance(flat_generator4(list_of_lists_2), types.GeneratorType)
 
 
 if __name__ == '__main__':
     test_1()
     test_2()
-    test_4()
